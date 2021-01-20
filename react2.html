@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>React</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script>
+            // var tree = document.getElementById('sec');
+            var x = document.getElementById("root");
+            var opt = document.createElement("option");
+            var golb;
+
+            function dataRender() {
+                var empty = "";
+
+                // var count = 0;
+                let a = 10;
+                console.log(a);
+                console.log("asd");
+                const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+                const url = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
+                fetch(proxyUrl + url)
+                    .then((response) => {
+                        return response.text();
+                    })
+                    .then((data) => {
+                        var arr = data.split("\n");
+                        const len = arr.length;
+                        // console.log(arr);
+                        for (let i = 1; i < len - 1; i++) {
+                            var parent0 = fun(arr[i]);
+                            // console.log(parent0);
+                        }
+
+                        // tree.innerHTML = str;
+                        let h1 = 0;
+                        var t2 = [];
+                        obj = {};
+                        for (let i = 2; i < len - 1; i++) {
+                            // console.log(arr[2]);
+                            // break;
+                            t2[0] = arr[i].split(" > ")[0];
+
+                            if (t2[0] == parent0[h1]) {
+                                var parent2 = fun1(arr[i], parent0[h1], 0);
+                                obj[parent0[h1]] = parent2;
+                                // console.log(obj[parent0[h1]]);
+                            } else {
+                                h1 = h1 + 1;
+                                y3 = [];
+                                i3 = 0;
+                            }
+                        }
+                        // console.log(parent2);
+                        // console.log(obj);
+
+                        for (let k = 0; k < parent0.length; k++) {
+                            for (let j = 0; j < obj[parent0[k]].length; j++) {
+                                for (let i = 1; i < len - 1; i++) {
+                                    var parent3 = fun1(arr[i], obj[parent0[k]][j], 1);
+                                }
+                                y3 = [];
+                                i3 = 0;
+                                obj2 = {};
+                                parent3.shift();
+                                obj2[obj[parent0[k]][j]] = parent3;
+                                obj[parent0[k]][j] = obj2;
+                                // opt.text =  obj[parent0[k]][j];
+                                // console.log(obj[parent0[k]][j]);
+                            }
+                        }
+
+                        // x.innerHTML = obj;
+                        //    console.log(obj);
+
+                        for (let k = 0; k < parent0.length; k++) {
+                            for (let j = 0; j < parent0[k].length; j++) {
+                                if (obj[parent0[k]][j] != undefined) {
+                                    var keys1 = Object.keys(obj[parent0[k]][j]);
+                                } else {
+                                    continue;
+                                }
+                                for (let r = 0; r < obj[parent0[k]][j][keys1].length; r++) {
+                                    for (let i = 1; i < len - 1; i++) {
+                                        var y23 = obj[parent0[k]][j][keys1][r];
+                                        var parent4 = fun1(arr[i], y23, 2);
+                                    }
+                                    y3 = [];
+                                    i3 = 0;
+                                    parent4.shift();
+                                    obj2 = {};
+                                    obj2[y23] = parent4;
+                                    obj[parent0[k]][j][keys1][r] = obj2;
+                                }
+                            }
+                        }
+
+                        for (let k = 0; k < parent0.length; k++) {
+                            for (let j = 0; j < parent0[k].length; j++) {
+                                if (obj[parent0[k]][j] != undefined) {
+                                    var keys1 = Object.keys(obj[parent0[k]][j]);
+                                } else {
+                                    continue;
+                                }
+                                for (let r = 0; r < obj[parent0[k]][j][keys1].length; r++) {
+                                    if (obj[parent0[k]][j][keys1][r] != undefined) {
+                                        var keys2 = Object.keys(obj[parent0[k]][j][keys1][r]);
+                                    } else {
+                                        continue;
+                                    }
+                                    for (let n = 0; n < obj[parent0[k]][j][keys1][r][keys2].length; n++) {
+                                        for (let i = 1; i < len - 1; i++) {
+                                            var y24 = obj[parent0[k]][j][keys1][r][keys2][n];
+                                            var parent5 = fun1(arr[i], y24, 3);
+                                        }
+                                        y3 = [];
+                                        i3 = 0;
+                                        parent5.shift();
+                                        obj2 = {};
+                                        obj2[y24] = parent5;
+                                        obj[parent0[k]][j][keys1][r][keys2][n] = obj2;
+                                    }
+                                }
+                            }
+                        }
+                        // console.log(Object.keys(obj));
+                        // console.log(obj);
+                        currentObj = obj;
+                        Select(currentObj);
+
+                        // x.innerHTML = "<select>".obj['Animals & Pet Supplies']."</select>";
+                        // console.log(obj['Animals & Pet Supplies'])
+
+                        // x.innerHTML = obj;
+                    })
+                    .catch((error) => console.log(error));
+            }
+
+            dataRender();
+            let elementArrayIndex = 0,
+                elementArray = [];
+            function fun(string1) {
+                let count = 0;
+                let splited = string1.split(" > ");
+                let l2 = elementArray.length;
+                for (let i = 0; i < l2; i++) {
+                    if (elementArray[i] == splited[0]) {
+                        count = 1;
+                        break;
+                    }
+                }
+                if (count == 0) {
+                    elementArray[elementArrayIndex] = splited[0];
+                    elementArrayIndex++;
+                }
+                // console.log(elementArray)
+                return elementArray;
+            }
+
+            (y3 = []), (i3 = 0);
+            function fun1(string1, string2, index) {
+                let t = 0;
+                let splited = string1.split(" > ");
+                let parent1 = string2;
+                if (splited[index] == parent1) {
+                    let l2 = y3.length;
+                    for (let i = 0; i < l2; i++) {
+                        if (y3[i] == splited[index + 1]) {
+                            t = 1;
+                            break;
+                        }
+                    }
+                    if (t == 0) {
+                        y3[i3] = splited[index + 1];
+                        i3++;
+                    }
+                }
+                return y3;
+            }
+
+            function Select(data) {
+                let select = document.createElement("select");
+                select.innerHTML = "<option value=''>Select Category</oprion>";
+                for (var key in data) {
+                    let option = document.createElement("option");
+                    option.innerHTML = key;
+                    option.value = key;
+                    select.appendChild(option);
+                }
+                select.addEventListener("change", function () {
+                    let temp = currentObj ? currentObj[this.value] : finalObj;
+                    if (temp && Object.keys(temp).length > 0) {
+                        currentObj = temp;
+                        Select(currentObj);
+                    }
+                });
+                x.appendChild(select);
+            }
+
+            function f2() {
+                console.log("hello");
+            }
+        </script>
+    </body>
+</html>
